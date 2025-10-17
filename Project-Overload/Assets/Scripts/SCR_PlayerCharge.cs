@@ -23,15 +23,17 @@ public class SCR_PlayerCharge : MonoBehaviour{
         chargeBar.SetBar(currentCharge);
     }
 
-    void TryBeginCharge(SCR_Charger chargeSource, float incomingCharge){
-        if (activeCharges[chargeSource] != null) return;
+    public void TryBeginCharge(SCR_Charger chargeSource, float incomingCharge){
+        float USELESS; //I will not use this variable I only use it to match the signature of TryGetValue
+        if (activeCharges.TryGetValue(chargeSource, out USELESS)) return; //if there is an active charge from chargeSource, ignore.
         activeCharges.Add(chargeSource,incomingCharge);
         chargingAmmount += incomingCharge;
     }
 
-    void TryEndCharge(SCR_Charger chargeSource){
-        if (activeCharges[chargeSource] == null) return;
-        chargingAmmount -= activeCharges[chargeSources];
+    public void TryEndCharge(SCR_Charger chargeSource){
+        float USELESS; //I will not use this variable I only use it to match the signature of TryGetValue
+        if (!activeCharges.TryGetValue(chargeSource, out USELESS)) return; //if there's no active charge from chargeSource, ignore.
+        chargingAmmount -= activeCharges[chargeSource];
         activeCharges.Remove(chargeSource);
     }
 
