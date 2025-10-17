@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Charge
+  - Border
   layers:
   - Default
   - TransparentFX
