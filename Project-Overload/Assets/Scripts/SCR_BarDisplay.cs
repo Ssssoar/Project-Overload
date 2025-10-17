@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SCR_BarDisplay : MonoBehaviour{
 
     [SerializeField] Image barImg;
-    [SerializeField] int current,max;
+    [SerializeField] float current,max;
     [SerializeField] float lerpStrength;
     [SerializeField] Transform empty,full;
     float targetFill,currentFill = 0f;
@@ -23,14 +23,14 @@ public class SCR_BarDisplay : MonoBehaviour{
         UpdateBar();
     }
 
-    public void SetBar(int value, int total){
+    public void SetBar(float value, float total){
         current = value;
         max = total;
         ClampValue();
         UpdateTarget();
     }
 
-    public void SetBar(int value){
+    public void SetBar(float value){
         SetBar(value,max);
     }
 
