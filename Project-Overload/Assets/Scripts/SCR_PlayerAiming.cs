@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class SCR_PlayerAiming : MonoBehaviour{
     [Header("References")]
@@ -7,17 +6,8 @@ public class SCR_PlayerAiming : MonoBehaviour{
     [SerializeField] Transform aimerTransform;
 
     void Update(){
-        Vector3 targetPosition = GetWorldPositionFromMouse();
+        Vector3 targetPosition = SCR_CameraController.Instance.GetWorldPositionFromMouse();
         PointAimerTo(targetPosition);
-    }
-
-    Vector3 GetWorldPositionFromMouse(){
-        if (Mouse.current != null){
-            Vector2 screenPosition = Mouse.current.position.ReadValue();
-            Vector3 worldPosition = mainCamera.ScreenToWorldPoint(screenPosition);
-            worldPosition.z = 0f;
-            return worldPosition;
-        }else return Vector3.zero;
     }
 
     void PointAimerTo(Vector3 target){
