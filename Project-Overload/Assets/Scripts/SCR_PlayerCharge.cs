@@ -47,4 +47,8 @@ public class SCR_PlayerCharge : MonoBehaviour{
         if (chargeToClamp >= maxCharge) return maxCharge;
         return chargeToClamp;
     }
+
+    public float GetChargeRatio(){
+        return currentCharge / maxCharge;
+    }
 }

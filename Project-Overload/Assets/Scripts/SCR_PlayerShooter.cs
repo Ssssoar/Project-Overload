@@ -4,41 +4,48 @@ public class SCR_PlayerShooter : MonoBehaviour{
     //If I had infinite time I'd implement an object pool for these
     [Header("References")]
     [SerializeField] Transform firePoint;
+    [SerializeField] SCR_PlayerCharge playerCharge;
 
     [Header("Prefabs")]
     [SerializeField] SCR_Bullet bulletToFire;
 
     [Header("Parameters")]
-    [SerializeField] float fireRate; //in objects instantiated per second
+    [SerializeField] float idealFireRate; //in objects instantiated per second when at full charge
 
     [Header("Variables")]
     float timer = 0f;
+    float effectiveFireRate; //fire rate scaled by player charge ratio
 
     void Start(){
         SetUpTimer();
     }
 
     void Update(){
-        if (RunTimer()){
-            SetUpTimer();
+        effectiveFireRate = idealFireRate * Mathf.Pow(playerCharge.GetChargeRatio(),3f);
+        Debug.Log(effectiveFireRate);
+        if (RunTimer(effectiveFireRate)){
             FireBullet();
         }
     }
 
-    bool RunTimer(){ //returns whether the timer expired
+    bool RunTimer(float fireRate){ //returns whether the timer expired
         timer -= Time.deltaTime;
-        if (timer <= 0f) return true; //if timer expired
-        else if ((timer == float.PositiveInfinity) && (fireRate != 0f)) return true; //if timer is infinite but we began firing at some point
-        else return false;
-
+        if (timer <= 0f){/*if timer expired*/ 
+            SetUpTimer();
+            return true; 
+        }else if(timer > GetTimeBetweenBullets(fireRate)) /*if we're waiting a time longer than the given firerate would imply*/{
+            SetUpTimer();
+        }
+        return false;
     }
 
     void SetUpTimer(){
-        if (fireRate == 0f){
-            timer = float.PositiveInfinity;
-        }else{
-            timer += 1/fireRate;
-        }
+        timer = GetTimeBetweenBullets(effectiveFireRate);
+    }
+
+    float GetTimeBetweenBullets(float fireRate){
+        if (fireRate == 0.0f) return Mathf.Infinity;
+        return 1/effectiveFireRate;
     }
 
     void FireBullet(){
