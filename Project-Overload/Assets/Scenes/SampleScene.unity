@@ -1029,6 +1029,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &848621054
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 267928595723900960, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_Name
+      value: SingleCable
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399834938019510240, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406585481891589842, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.860241
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406585481891589842, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.0620155
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406585481891589842, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406585481891589842, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406585481891589842, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406585481891589842, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406585481891589842, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406585481891589842, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406585481891589842, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8406585481891589842, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 67473f4805abea82c8baea91ecb2c0f3, type: 3}
 --- !u!1 &891128059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,10 +1762,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856ae6958521d174d8d9ca977f8ff1bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeBar: {fileID: 1210271029}
+  bar: {fileID: 1210271029}
+  max: 10
+  fillSpeed: -5
   cableManager: {fileID: 1719354442}
-  maxCharge: 10
-  chargingAmmount: -5
 --- !u!114 &1292849630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1762,7 +1823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chargeBar: {fileID: 2077618657}
   maxHealth: 100
-  currentHealth: 0
+  healthLoss: 0
 --- !u!1 &1364492076
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,3 +2659,4 @@ SceneRoots:
   - {fileID: 420308961}
   - {fileID: 8070879377591133758}
   - {fileID: 1587627643}
+  - {fileID: 848621054}
