@@ -21,7 +21,7 @@ public class SCR_PlayerShooter : MonoBehaviour{
     }
 
     void Update(){
-        effectiveFireRate = idealFireRate * Mathf.Pow(playerCharge.GetChargeRatio(),3f);
+        effectiveFireRate = idealFireRate * Mathf.Pow(playerCharge.GetRatio(),3f);
         if (RunTimer(effectiveFireRate)){
             FireBullet();
         }

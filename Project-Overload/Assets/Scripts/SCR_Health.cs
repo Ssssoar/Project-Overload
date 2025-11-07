@@ -8,7 +8,8 @@ public class SCR_Health : MonoBehaviour{
     [SerializeField] float maxHealth; //which is also initial health
 
     [Header("Variables")]
-    [SerializeField] float currentHealth;
+    float currentHealth;
+    [SerializeField] float healthLoss; //in points per second
 
     void Start(){
         currentHealth = maxHealth;
@@ -16,6 +17,12 @@ public class SCR_Health : MonoBehaviour{
     }
 
     void Update(){
+        UpdateCurrentHealth(healthLoss);
         chargeBar.SetBar(currentHealth);
+    }
+
+    void UpdateCurrentHealth(float healthLoss){
+        //currentHealth += chargingAmmount * Time.deltaTime;
+        //currentHealth = ClampHealth(currentHealth);
     }
 }
