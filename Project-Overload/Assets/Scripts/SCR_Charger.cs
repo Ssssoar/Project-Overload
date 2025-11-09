@@ -16,4 +16,8 @@ public class SCR_Charger : MonoBehaviour{
             chargeComp.TryEndCharge(this);
         }
     }
+
+    public float GetCharge(){
+        return chargeToGrant;
+    }
 }

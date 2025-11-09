@@ -1,28 +1,15 @@
 using UnityEngine;
 
-public class SCR_Health : MonoBehaviour{
-    [Header("References")]
-    [SerializeField] SCR_BarDisplay chargeBar;
-
-    [Header("Parameters")]
-    [SerializeField] float maxHealth; //which is also initial health
-
-    [Header("Variables")]
-    float currentHealth;
-    [SerializeField] float healthLoss; //in points per second
-
-    void Start(){
-        currentHealth = maxHealth;
-        chargeBar.SetBar(currentHealth, maxHealth);
+public class SCR_Health : SCR_Vitals{
+    internal override void FixedUpdate(){
+        base.FixedUpdate();
+        fillSpeed = 0f;
     }
 
-    void Update(){
-        UpdateCurrentHealth(healthLoss);
-        chargeBar.SetBar(currentHealth);
-    }
-
-    void UpdateCurrentHealth(float healthLoss){
-        //currentHealth += chargingAmmount * Time.deltaTime;
-        //currentHealth = ClampHealth(currentHealth);
+    void OnCollisionStay2D(Collision2D collision){
+        SCR_DamageDealer damageScript = collision.gameObject.GetComponent<SCR_DamageDealer>();
+        if (damageScript != null){
+            fillSpeed -= damageScript.damage;
+        }
     }
 }

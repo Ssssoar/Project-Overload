@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class SCR_Vitals : MonoBehaviour{ //base class for anything that is a number, constantly in flux during the gameplay
     [Header("References")]
-    [SerializeField] SCR_BarDisplay bar;
+    [SerializeField] internal SCR_BarDisplay bar;
 
     [Header("Parameters")]
-    [SerializeField] float max = 100f;
+    [SerializeField] public float max;
 
     [Header("Variables")]
-    float current;
-    [SerializeField] protected float fillSpeed = 0f; //in units per second; can be negative
+    [HideInInspector] public float current {get; internal set;}
+    public float fillSpeed = 0f; //in units per second; can be negative
 
-    void Start(){
+    internal virtual void Start(){
         current = max;
         bar.SetBar(current, max);
     }
 
-    void FixedUpdate(){
+    internal virtual void FixedUpdate(){
         UpdateCurrent(fillSpeed);
         bar.SetBar(current);
     }
