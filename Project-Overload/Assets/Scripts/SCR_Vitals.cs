@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SCR_Vitals : MonoBehaviour{ //base class for anything that is a number, constantly in flux during the gameplay
     [Header("References")]
@@ -11,6 +12,10 @@ public class SCR_Vitals : MonoBehaviour{ //base class for anything that is a num
     [Header("Variables")]
     [HideInInspector] public float current {get; internal set;}
     public float fillSpeed = 0f; //in units per second; can be negative
+    bool wasEmptyLastFrame = false;
+
+    [Header("Events")]
+    [SerializeField] UnityEvent onDeplete; 
 
     internal virtual void Start(){
         current = max;
@@ -25,6 +30,14 @@ public class SCR_Vitals : MonoBehaviour{ //base class for anything that is a num
     void UpdateCurrent(float fillSpeed){
         current += fillSpeed * Time.deltaTime;
         current = Clamp(current);
+        if (current == 0f){
+            if (!wasEmptyLastFrame){
+                onDeplete.Invoke();
+            }
+            wasEmptyLastFrame = true;
+        }else{
+            wasEmptyLastFrame = false;
+        }
     }
 
     float Clamp(float toClamp){
@@ -40,5 +53,11 @@ public class SCR_Vitals : MonoBehaviour{ //base class for anything that is a num
     public void InstantChange(float changeAmmount){
         current += changeAmmount;
         current = Clamp(current);
+        if ((current == 0f) && (!wasEmptyLastFrame)){
+            onDeplete.Invoke();
+        }
+        if (current != 0f){
+            wasEmptyLastFrame = false;
+        }
     }
 }
