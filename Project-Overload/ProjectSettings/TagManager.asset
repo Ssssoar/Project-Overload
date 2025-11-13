@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Charge
   - Border
+  - Enemy
   layers:
   - Default
   - TransparentFX

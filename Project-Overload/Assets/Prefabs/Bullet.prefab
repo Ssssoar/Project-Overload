@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 2190572314607883613}
   - component: {fileID: 4165758751222330937}
   - component: {fileID: 5661254251517356678}
+  - component: {fileID: 8291140955281930567}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,14 +135,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8307512371638245622}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -167,3 +168,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   borderTag: Border
+  forceStrength: 1
+--- !u!114 &8291140955281930567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307512371638245622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52840af99f5c0257c95085d1688151e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  instant: 1
+  tagToDamage: Enemy
+  onInstantDamageDealt:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5661254251517356678}
+        m_TargetAssemblyTypeName: SCR_Bullet, Assembly-CSharp
+        m_MethodName: DamageDealtResponse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

@@ -36,4 +36,9 @@ public class SCR_Vitals : MonoBehaviour{ //base class for anything that is a num
     public float GetRatio(){
         return current / max;
     }
+
+    public void InstantChange(float changeAmmount){
+        current += changeAmmount;
+        current = Clamp(current);
+    }
 }

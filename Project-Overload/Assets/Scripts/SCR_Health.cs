@@ -6,10 +6,7 @@ public class SCR_Health : SCR_Vitals{
         fillSpeed = 0f;
     }
 
-    void OnCollisionStay2D(Collision2D collision){
-        SCR_DamageDealer damageScript = collision.gameObject.GetComponent<SCR_DamageDealer>();
-        if (damageScript != null){
-            fillSpeed -= damageScript.damage;
-        }
+    public void AddDamageSource(float damagePerSecond){
+        fillSpeed -= damagePerSecond;
     }
 }
