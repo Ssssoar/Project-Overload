@@ -18,7 +18,7 @@ public class SCR_WaveManager : MonoBehaviour{
     [SerializeField] SO_WaveList waveList;
 
     [Header("Variables")]
-    int currentWave = 0;
+    int currentWave = -1;
     SO_Wave currentWaveData;
     List<float> timers = new List<float>();
     List<int> spawnCounters = new List<int>();
@@ -47,7 +47,7 @@ public class SCR_WaveManager : MonoBehaviour{
 
     void TryAdvanceWave(){
         foreach (int counter in spawnCounters){
-            if (counter != 0) return;
+            if (counter > 0) return;
         }
         for(int enemyListingIndex = 0; enemyListingIndex < totalSpawnCounters.Count; enemyListingIndex++){
             if (totalSpawnCounters[enemyListingIndex] != currentWaveData.enemiesToSpawn[enemyListingIndex].totalAmmount) return;
@@ -62,7 +62,7 @@ public class SCR_WaveManager : MonoBehaviour{
         ){
             return false;
         }
-        SCR_EnemySpawner.Instance.SpawnEnemy(currentWaveData.enemiesToSpawn[listingIndexToSpawnFrom].enemyType);
+        SCR_EnemySpawner.Instance.SpawnEnemy(currentWaveData.enemiesToSpawn[listingIndexToSpawnFrom].enemyType, listingIndexToSpawnFrom);
         spawnCounters[listingIndexToSpawnFrom] += 1;
         totalSpawnCounters[listingIndexToSpawnFrom] += 1;
         return true;
@@ -70,10 +70,10 @@ public class SCR_WaveManager : MonoBehaviour{
 
     void StartNextWave(){
         currentWave++;
-        if (currentWave > waveList.waves.Length){
+        if (currentWave >= waveList.waves.Length){
             currentWave = waveList.waves.Length-1;
         }
-        currentWaveData = waveList.waves[currentWave-1];
+        currentWaveData = waveList.waves[currentWave];
         SetUpTimers();
         SetUpSpawnCounters();
     }

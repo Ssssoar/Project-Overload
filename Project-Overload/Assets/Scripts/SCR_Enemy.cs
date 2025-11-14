@@ -7,4 +7,8 @@ public class SCR_Enemy : MonoBehaviour{
         SCR_WaveManager.Instance.FreeEnemySlot(listingIndex);
         Destroy(gameObject);
     }
+
+    public void SetListingIndex(int indexToStore){
+        listingIndex = indexToStore;
+    }
 }

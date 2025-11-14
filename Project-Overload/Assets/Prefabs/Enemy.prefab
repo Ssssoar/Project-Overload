@@ -635,7 +635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bar: {fileID: 5697433568638603369}
-  max: 100
+  max: 5
   fillSpeed: 0
   onDeplete:
     m_PersistentCalls:
