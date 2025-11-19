@@ -25,4 +25,9 @@ public class SCR_SceneSwitcher : MonoBehaviour{
     public void LoadGame(){
         SceneManager.LoadScene(gameScene.name);
     }
+
+    public void QuitGame(){
+        Application.Quit();
+        Debug.Log("Tried to Quit (you're probably in editor)");
+    }
 }

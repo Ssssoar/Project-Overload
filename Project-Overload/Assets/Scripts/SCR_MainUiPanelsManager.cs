@@ -25,10 +25,12 @@ public class SCR_MainUiPanelsManager : MonoBehaviour{
 
     [SerializeField] PanelListing[] panels;
     [SerializeField] Button playButton;
+    [SerializeField] Button quitButton;
 
     void Start(){
         ActivatePanels();
         if (playButton != null) playButton.onClick.AddListener(SCR_SceneSwitcher.Instance.LoadGame);
+        if (quitButton != null) quitButton.onClick.AddListener(SCR_SceneSwitcher.Instance.QuitGame);
     }
 
     
