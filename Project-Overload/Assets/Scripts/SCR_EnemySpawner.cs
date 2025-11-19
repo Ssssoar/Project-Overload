@@ -15,6 +15,13 @@ public class SCR_EnemySpawner : MonoBehaviour{
     [Header("Parameters")]
     [SerializeField] Vector2 spawnBoundaries;
 
+
+    public void ResetEnemy(SCR_Enemy toReset){
+        Vector2 spawnPos = GetSpawnPosition();
+        toReset.transform.position = GetSpawnPosition();
+        toReset.Reset();
+    }
+
     public void SpawnEnemy(SCR_Enemy enemyToSpawn, int enemyListingIndex){
         Vector2 spawnPosition = GetSpawnPosition();
         SCR_Enemy spawnedEnemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
@@ -22,6 +29,39 @@ public class SCR_EnemySpawner : MonoBehaviour{
     }
 
     Vector2 GetSpawnPosition(){
+        Vector2[] bounds = GetBoundaries();
+        Vector2 spawnPos = new Vector2(
+            Random.Range(bounds[0].x, bounds[1].x),
+            Random.Range(bounds[0].y, bounds[1].y)
+        );
+        switch(Random.Range(0,4)){
+            case 0:
+                spawnPos.x = bounds[0].x;
+            break;
+            case 1:
+                spawnPos.y = bounds[0].y;
+            break;
+            case 2:
+                spawnPos.x = bounds[1].x;
+            break;
+            case 3:
+                spawnPos.y = bounds[1].y;
+            break;
+        }
+        return spawnPos;
+    }
+
+    public bool IsPosOutsideBoundaries(Vector3 position){
+        Vector2[] bounds = GetBoundaries();
+        return (
+            (position.x > bounds[1].x) ||
+            (position.y > bounds[1].y) ||
+            (position.x < bounds[0].x) ||
+            (position.y < bounds[0].y)
+        );
+    }
+
+    Vector2[] GetBoundaries(){
         Vector2 min, max, playerPos, cameraPos;
         playerPos = SCR_GameManager.Instance.GetPlayerPosition();
         cameraPos = SCR_GameManager.Instance.GetCameraPosition();
@@ -37,25 +77,6 @@ public class SCR_EnemySpawner : MonoBehaviour{
         min.y -= spawnBoundaries.y;
         max.x += spawnBoundaries.x;
         max.y += spawnBoundaries.y;
-        Vector2 spawnPos = new Vector2(
-            Random.Range(min.x, max.x),
-            Random.Range(min.y, max.y)
-        );
-        switch(Random.Range(0,4)){
-            case 0:
-                spawnPos.x = min.x;
-            break;
-            case 1:
-                spawnPos.y = min.y;
-            break;
-            case 2:
-                spawnPos.x = max.x;
-            break;
-            case 3:
-                spawnPos.y = max.y;
-            break;
-        }
-        return spawnPos;
+        return new Vector2[] {min,max};
     }
-
 }

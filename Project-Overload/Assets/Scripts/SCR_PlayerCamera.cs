@@ -3,10 +3,28 @@ using UnityEngine;
 public class SCR_PlayerCamera : MonoBehaviour{
     [Header("References")]
     [SerializeField] GameObject cameraTarget;
+    [SerializeField] float lerpStrength;
+
+    bool freeze = false;
+
+    void Start(){
+        SCR_GameManager.Instance.onPause.AddListener(Freeze);
+        SCR_GameManager.Instance.onUnPause.AddListener(UnFreeze);
+    }
+
     void Update(){
+        if (freeze) return;
         Vector3 mouseWorldPos = SCR_CameraController.Instance.GetWorldPositionFromMouse();
-        Vector3 endPos = GetMidPoint(mouseWorldPos, transform.position);
-        cameraTarget.transform.position = endPos;
+        Vector3 targetPos = GetMidPoint(mouseWorldPos, transform.position);
+        cameraTarget.transform.position = Vector3.Lerp(cameraTarget.transform.position, targetPos, lerpStrength);
+    }
+
+    void Freeze(){
+        freeze = true;
+    }
+
+    void UnFreeze(){
+        freeze = false;
     }
 
     Vector3 GetMidPoint(Vector3 p1, Vector3 p2){

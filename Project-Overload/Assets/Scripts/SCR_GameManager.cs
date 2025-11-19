@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SCR_GameManager : MonoBehaviour{
     //SINGLETON START
@@ -12,7 +13,37 @@ public class SCR_GameManager : MonoBehaviour{
     }
     //SINGLETON END
     [SerializeField] GameObject player;
-    [SerializeField] GameObject gameCamera; 
+    [SerializeField] GameObject gameCamera;
+    public UnityEvent onPause;
+    public UnityEvent onUnPause;
+    bool paused;
+    bool unPauseForbidden;
+
+    void Update(){
+        if (Input.GetKeyDown("escape")){
+            TryTogglePause();
+        }
+    }
+
+    public void TryUnpause(){
+        if ((unPauseForbidden) || (!paused)) return;
+        onUnPause.Invoke();
+        Time.timeScale = 1f;
+        paused = false;
+        SCR_GameUiPanelsManager.Instance.ClosePanel();
+    }
+
+    void TryPause(){
+        onPause.Invoke();
+        paused = true;
+        Time.timeScale = 0f;
+        SCR_GameUiPanelsManager.Instance.OpenPanel(SCR_GameUiPanelsManager.Panel.Pause);
+    }
+
+    void TryTogglePause(){
+        if (paused) TryUnpause();
+        else TryPause();
+    }
 
     public GameObject GetPlayer(){
         return player;

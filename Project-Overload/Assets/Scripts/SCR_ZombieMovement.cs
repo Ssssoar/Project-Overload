@@ -12,6 +12,10 @@ public class SCR_ZombieMovement : MonoBehaviour{
 
     void Start(){
         playerTransform = SCR_GameManager.Instance.GetPlayer()?.transform;
+        SCR_Enemy enemyComp = GetComponent<SCR_Enemy>();
+        if (enemyComp != null){
+            enemyComp.onReset.AddListener(Reset);
+        }
     }
 
     void FixedUpdate(){
@@ -23,5 +27,9 @@ public class SCR_ZombieMovement : MonoBehaviour{
         Vector3 moveDirection = (playerTransform.position - transform.position).normalized;
         Vector2 moveDirectionAs2D = new Vector2 (moveDirection.x, moveDirection.y);
         rigidbodyComp.AddForce(moveDirection * movementStrength);
+    }
+
+    void Reset(){
+        rigidbodyComp.linearVelocity = new Vector3();
     }
 }
