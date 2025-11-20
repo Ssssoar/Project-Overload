@@ -16,7 +16,10 @@ public class SCR_GameManager : MonoBehaviour{
     [SerializeField] GameObject gameCamera;
     public UnityEvent onPause;
     public UnityEvent onUnPause;
+    public UnityEvent onFreeze;
+    public UnityEvent onUnfreeze;
     bool paused;
+    bool frozen;
     bool unPauseForbidden;
 
     void Update(){
@@ -25,24 +28,35 @@ public class SCR_GameManager : MonoBehaviour{
         }
     }
 
+    void TryTogglePause(){
+        if (paused) TryUnpause();
+        else TryPause();
+    }
+
     public void TryUnpause(){
         if ((unPauseForbidden) || (!paused)) return;
         onUnPause.Invoke();
-        Time.timeScale = 1f;
+        FreezeState(false);
         paused = false;
         SCR_GameUiPanelsManager.Instance.ClosePanel();
     }
 
     void TryPause(){
+        if (paused) return;
         onPause.Invoke();
+        FreezeState(true);
         paused = true;
-        Time.timeScale = 0f;
         SCR_GameUiPanelsManager.Instance.OpenPanel(SCR_GameUiPanelsManager.Panel.Pause);
     }
 
-    void TryTogglePause(){
-        if (paused) TryUnpause();
-        else TryPause();
+    public void FreezeState(bool freeze){
+        Time.timeScale = (freeze)? 0f: 1f;
+        frozen = freeze;
+        if (freeze){
+            onFreeze?.Invoke();
+        }else{
+            onUnfreeze?.Invoke();
+        }
     }
 
     public GameObject GetPlayer(){

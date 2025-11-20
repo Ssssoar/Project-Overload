@@ -8,8 +8,8 @@ public class SCR_PlayerCamera : MonoBehaviour{
     bool freeze = false;
 
     void Start(){
-        SCR_GameManager.Instance.onPause.AddListener(Freeze);
-        SCR_GameManager.Instance.onUnPause.AddListener(UnFreeze);
+        SCR_GameManager.Instance.onFreeze.AddListener(Freeze);
+        SCR_GameManager.Instance.onUnfreeze.AddListener(UnFreeze);
     }
 
     void Update(){

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class SCR_WaveManager : MonoBehaviour{
     //SINGLETON START
@@ -16,6 +17,7 @@ public class SCR_WaveManager : MonoBehaviour{
 
     [Header("Parameters")]
     [SerializeField] SO_WaveList waveList;
+    [SerializeField] UnityEvent onWaveIncrement;
 
     [Header("Variables")]
     int currentWave = -1;
@@ -76,6 +78,7 @@ public class SCR_WaveManager : MonoBehaviour{
         currentWaveData = waveList.waves[currentWave];
         SetUpTimers();
         SetUpSpawnCounters();
+        if (currentWave != 0) onWaveIncrement?.Invoke();
     }
 
     void SetUpTimers(){
