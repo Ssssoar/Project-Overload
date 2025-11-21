@@ -1656,6 +1656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pusherComp: {fileID: 675746006}
+  blastTime: 0.5
 --- !u!1 &744454838
 GameObject:
   m_ObjectHideFlags: 0
@@ -4323,6 +4324,7 @@ MonoBehaviour:
   player: {fileID: 1292849623}
   gameCamera: {fileID: 519420028}
   charger: {fileID: 420308962}
+  blast: {fileID: 675746010}
   onGameStateChange:
     m_PersistentCalls:
       m_Calls: []
