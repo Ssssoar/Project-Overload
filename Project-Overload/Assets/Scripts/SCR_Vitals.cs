@@ -11,7 +11,8 @@ public class SCR_Vitals : MonoBehaviour{ //base class for anything that is a num
 
     [Header("Variables")]
     [HideInInspector] public float current {get; internal set;}
-    public float fillSpeed = 0f; //in units per second; can be negative
+    [SerializeField] internal float defaultFillSpeed = 0f;
+    [SerializeField] internal float fillSpeed = 0f; //in units per second; can be negative
     bool wasEmptyLastFrame = false;
 
     [Header("Events")]
@@ -20,6 +21,7 @@ public class SCR_Vitals : MonoBehaviour{ //base class for anything that is a num
     internal virtual void Start(){
         current = max;
         bar.SetBar(current, max);
+        ResetFillSpeed();
     }
 
     internal virtual void FixedUpdate(){
@@ -38,6 +40,15 @@ public class SCR_Vitals : MonoBehaviour{ //base class for anything that is a num
         }else{
             wasEmptyLastFrame = false;
         }
+    }
+
+    public void ChangeDefaultFillSpeed(float newSpeed){
+        defaultFillSpeed = newSpeed;
+        ResetFillSpeed();
+    }
+
+    internal virtual void ResetFillSpeed(){
+        fillSpeed = defaultFillSpeed;
     }
 
     float Clamp(float toClamp){

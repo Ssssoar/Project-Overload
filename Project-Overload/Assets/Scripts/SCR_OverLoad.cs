@@ -29,6 +29,7 @@ public class SCR_OverLoad : SCR_Vitals{
                 onOverLoadStart.Invoke();
                 overloaded = true;
                 current = 0f;
+                fillSpeed = 0f;
                 timer = overloadTime;
             }else if (chargeScript.current == chargeScript.max){
                 fillSpeed = increaseRate;
@@ -44,5 +45,9 @@ public class SCR_OverLoad : SCR_Vitals{
                 timer = 0f;
             }
         }
+    }
+
+    public void ChangeIncreaseRate(float newRate){
+        increaseRate = newRate;
     }
 }

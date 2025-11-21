@@ -12,15 +12,28 @@ public class SCR_GameManager : MonoBehaviour{
         }
     }
     //SINGLETON END
+    [Header ("References")]
     [SerializeField] GameObject player;
     [SerializeField] GameObject gameCamera;
-    public UnityEvent onPause;
-    public UnityEvent onUnPause;
-    public UnityEvent onFreeze;
-    public UnityEvent onUnfreeze;
-    bool paused;
+    [SerializeField] SCR_Charger charger;
+
+    //Definitions
+    public enum GameState{Playing, Paused, Upgrade, GameOver};
+    [System.Serializable] public class GameStateEvent : UnityEvent<GameState> {}
+    [System.Serializable] public class BoolEvent : UnityEvent<bool> {}
+
+    [Header("Events")]
+    public GameStateEvent onGameStateChange;
+    public BoolEvent onFreezeStateChange;
+
+    [Header("Variables")]
     bool frozen;
-    bool unPauseForbidden;
+    GameState currentGameState = GameState.Playing;
+
+    void Start(){
+        FreezeState(false);
+        SCR_WaveManager.Instance.onWaveIncrement.AddListener(TryUpgradeState);
+    }
 
     void Update(){
         if (Input.GetKeyDown("escape")){
@@ -29,33 +42,52 @@ public class SCR_GameManager : MonoBehaviour{
     }
 
     void TryTogglePause(){
-        if (paused) TryUnpause();
-        else TryPause();
+        if (currentGameState == GameState.Paused) TryChangeGameState(GameState.Playing);
+        else if (currentGameState == GameState.Playing) TryChangeGameState(GameState.Paused);
     }
 
     public void TryUnpause(){
-        if ((unPauseForbidden) || (!paused)) return;
-        onUnPause.Invoke();
-        FreezeState(false);
-        paused = false;
-        SCR_GameUiPanelsManager.Instance.ClosePanel();
+        if (currentGameState != GameState.Paused) return;
+        TryChangeGameState(GameState.Playing);
     }
 
-    void TryPause(){
-        if (paused) return;
-        onPause.Invoke();
-        FreezeState(true);
-        paused = true;
-        SCR_GameUiPanelsManager.Instance.OpenPanel(SCR_GameUiPanelsManager.Panel.Pause);
+    public void TryUpgradeState(){
+        TryChangeGameState(GameState.Upgrade);
+    }
+
+    public void TryEndUpgradeState(){
+        if (currentGameState != GameState.Upgrade) return;
+        TryChangeGameState(GameState.Playing);
+    }
+
+    public void TryChangeGameState(GameState changeTo){
+        bool allowed = false;
+        if (
+            (currentGameState == GameState.Playing) ||
+            (changeTo == GameState.Playing) && ((currentGameState == GameState.Paused) || (currentGameState == GameState.Upgrade))
+        ){
+            allowed = true;
+        }
+        if (allowed) ChangeGameState(changeTo);
+    }
+
+    void ChangeGameState(GameState changeTo){
+        currentGameState = changeTo;
+        if ((changeTo == GameState.Paused) || (changeTo == GameState.Upgrade)){
+            FreezeState(true);
+        }else{
+            FreezeState(false);
+        }
+        onGameStateChange?.Invoke(changeTo);
     }
 
     public void FreezeState(bool freeze){
         Time.timeScale = (freeze)? 0f: 1f;
         frozen = freeze;
         if (freeze){
-            onFreeze?.Invoke();
+            onFreezeStateChange?.Invoke(true);
         }else{
-            onUnfreeze?.Invoke();
+            onFreezeStateChange?.Invoke(false);
         }
     }
 
@@ -69,5 +101,25 @@ public class SCR_GameManager : MonoBehaviour{
 
     public Vector2 GetCameraPosition(){
         return gameCamera.transform.position;
+    }
+
+    public SCR_PlayerShooter GetPlayerShooter(){
+        return player.GetComponent<SCR_PlayerShooter>();
+    }
+
+    public SCR_PlayerCharge GetPlayerCharge(){
+        return player.GetComponent<SCR_PlayerCharge>();
+    }
+
+    public SCR_Health GetPlayerHealth(){
+        return player.GetComponent<SCR_Health>();
+    }
+
+    public SCR_OverLoad GetPlayerOverLoad(){
+        return player.GetComponent<SCR_OverLoad>();
+    }
+
+    public SCR_Charger GetCharger(){
+        return charger;
     }
 }

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesToSpawn:
   - enemyType: {fileID: 586637402819988635, guid: 5aa69737a9b5cbba9873fa117ec09172, type: 3}
-    totalAmmount: 20
+    totalAmmount: 5
     timeToSpawnAll: 3
-    maxAtOneTime: 5
+    maxAtOneTime: 2
   - enemyType: {fileID: 586637402819988635, guid: 4ff580e9e3fb4c1038c7901fb3295a3f, type: 3}
-    totalAmmount: 100
+    totalAmmount: 10
     timeToSpawnAll: 3
     maxAtOneTime: 10

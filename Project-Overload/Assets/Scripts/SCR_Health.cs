@@ -16,7 +16,7 @@ public class SCR_Health : SCR_Vitals{
 
     internal override void FixedUpdate(){
         base.FixedUpdate();
-        fillSpeed = 0f;
+        fillSpeed = defaultFillSpeed;
     }
 
     public void AddDamageSource(float damagePerSecond){

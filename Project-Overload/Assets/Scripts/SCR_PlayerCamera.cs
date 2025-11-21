@@ -8,8 +8,7 @@ public class SCR_PlayerCamera : MonoBehaviour{
     bool freeze = false;
 
     void Start(){
-        SCR_GameManager.Instance.onFreeze.AddListener(Freeze);
-        SCR_GameManager.Instance.onUnfreeze.AddListener(UnFreeze);
+        SCR_GameManager.Instance.onFreezeStateChange.AddListener(Freeze);
     }
 
     void Update(){
@@ -19,12 +18,8 @@ public class SCR_PlayerCamera : MonoBehaviour{
         cameraTarget.transform.position = Vector3.Lerp(cameraTarget.transform.position, targetPos, lerpStrength);
     }
 
-    void Freeze(){
-        freeze = true;
-    }
-
-    void UnFreeze(){
-        freeze = false;
+    void Freeze(bool state){
+        freeze = state;
     }
 
     Vector3 GetMidPoint(Vector3 p1, Vector3 p2){

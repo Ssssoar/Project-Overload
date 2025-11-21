@@ -50,4 +50,8 @@ public class SCR_PlayerShooter : MonoBehaviour{
     void FireBullet(){
         Instantiate(bulletToFire, firePoint.position, firePoint.rotation);
     }
+    
+    public void SetFireRate(float newRate){
+        idealFireRate = newRate;
+    }
 }

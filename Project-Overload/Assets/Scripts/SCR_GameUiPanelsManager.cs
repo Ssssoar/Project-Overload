@@ -24,35 +24,47 @@ public class SCR_GameUiPanelsManager : MonoBehaviour{
     }
 
     [SerializeField] PanelListing[] panels;
+    [SerializeField] Button resumeButton;
     [SerializeField] Button mainMenuButton;
+    [SerializeField] SCR_UpgradeSlot[] upgradeSlots;
 
     void Start(){
         ActivatePanels();
         if (mainMenuButton != null) mainMenuButton.onClick.AddListener(SCR_SceneSwitcher.Instance.LoadMenu);
+        SCR_GameManager.Instance.onGameStateChange.AddListener(OpenStatePanels);
+        resumeButton.onClick.AddListener(SCR_GameManager.Instance.TryUnpause);
+        SCR_UpgradeManager.Instance.onUpgradesRolled.AddListener(UpdateUpgradePanels);
     }
 
+    void OpenStatePanels(SCR_GameManager.GameState newState){
+        if (newState == SCR_GameManager.GameState.Playing) ClosePanel();
+        else if (newState == SCR_GameManager.GameState.Paused) OpenPausePanel();
+        else if (newState == SCR_GameManager.GameState.Upgrade) OpenUpgradePanel();
+        else if (newState == SCR_GameManager.GameState.GameOver) OpenGameOverPanel();
+    }
     
-    public void OpenPausePanel(){
+    void OpenPausePanel(){
         OpenPanel(Panel.Pause);
     }
-    public void OpenGameOverPanel(){
+
+    void OpenGameOverPanel(){
         OpenPanel(Panel.GameOver);
     }
     
-    public void OpenUpgradePanel(){
+    void OpenUpgradePanel(){
         OpenPanel(Panel.Upgrade);
     }
     
-    public void OpenConfigPanel(){
+    void OpenConfigPanel(){
         OpenPanel(Panel.Config);
     }
 
-    public void OpenPanel(Panel panelToOpen){
+    void OpenPanel(Panel panelToOpen){
         currentlyOpenPanel = panelToOpen;
         ActivatePanels();
     }
 
-    public void ClosePanel(){
+    void ClosePanel(){
         currentlyOpenPanel = Panel.None;
         ActivatePanels();
     }
@@ -60,6 +72,14 @@ public class SCR_GameUiPanelsManager : MonoBehaviour{
     void ActivatePanels(){
         foreach(PanelListing panelListing in panels){
             panelListing.Panel.SetActive(panelListing.panelType == currentlyOpenPanel);
+        }
+    }
+
+    void UpdateUpgradePanels (SO_Upgrade[] rolledUpgrades){
+        int i = 0;
+        foreach (SO_Upgrade rolledUpgrade in rolledUpgrades){
+            upgradeSlots[i].ReceiveUpgradeType(rolledUpgrade);
+            i++;
         }
     }
 }

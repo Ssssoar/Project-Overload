@@ -8,8 +8,7 @@ public class SCR_PlayerAiming : MonoBehaviour{
     bool freeze = false;
 
     void Start(){
-        SCR_GameManager.Instance.onFreeze.AddListener(Freeze);
-        SCR_GameManager.Instance.onUnfreeze.AddListener(UnFreeze);
+        SCR_GameManager.Instance.onFreezeStateChange.AddListener(Freeze);
     }
 
     void Update(){
@@ -18,12 +17,8 @@ public class SCR_PlayerAiming : MonoBehaviour{
         PointAimerTo(targetPosition);
     }
 
-    void Freeze(){
-        freeze = true;
-    }
-
-    void UnFreeze(){
-        freeze = false;
+    void Freeze(bool state){
+        freeze = state;
     }
 
     void PointAimerTo(Vector3 target){

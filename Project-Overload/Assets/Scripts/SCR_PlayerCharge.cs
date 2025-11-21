@@ -33,6 +33,13 @@ public class SCR_PlayerCharge : SCR_Vitals{
         cableManager.DisconnectFrom(chargeSource.transform);
     }
 
+    internal override void ResetFillSpeed(){
+        fillSpeed = defaultFillSpeed;
+        foreach(KeyValuePair<SCR_Charger, float> activeCharge in activeCharges){
+            fillSpeed += activeCharge.Value;
+        }
+    }
+
     public void BlockCharges(){
         blocked = true;
         foreach(KeyValuePair<SCR_Charger,float> activeCharge in activeCharges){
