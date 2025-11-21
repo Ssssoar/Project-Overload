@@ -26,6 +26,7 @@ public class SCR_ZombieMovement : MonoBehaviour{
         if (rigidbodyComp.linearVelocity.magnitude >= maxSpeed) return;
         Vector3 moveDirection = (playerTransform.position - transform.position).normalized;
         Vector2 moveDirectionAs2D = new Vector2 (moveDirection.x, moveDirection.y);
+        //float extraForce = GetExtraForce();
         rigidbodyComp.AddForce(moveDirection * movementStrength);
     }
 

@@ -122,4 +122,8 @@ public class SCR_GameManager : MonoBehaviour{
     public SCR_Charger GetCharger(){
         return charger;
     }
+
+    public SCR_Pusher GetPlayerPusher(){
+        return player.GetComponentInChildren<SCR_Pusher>();
+    }
 }

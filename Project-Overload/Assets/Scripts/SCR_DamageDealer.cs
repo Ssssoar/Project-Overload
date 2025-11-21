@@ -13,6 +13,17 @@ public class SCR_DamageDealer : MonoBehaviour{
     [Header("Events")]
     [SerializeField] RigidbodyEvent onInstantDamageDealt;
 
+    void OnTriggerEnter2D(Collider2D collider){
+        if (!instant) return;
+        if ((tagToDamage == "") || (collider.gameObject.tag == tagToDamage)){
+            SCR_Health healthScript = collider.gameObject.GetComponent<SCR_Health>();
+            if (healthScript != null){
+                healthScript.InstantChange(-damage);
+                onInstantDamageDealt.Invoke(collider.GetComponent<Rigidbody2D>());
+            }
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D collision){
         if (!instant) return;
         if ((tagToDamage == "") || (collision.gameObject.tag == tagToDamage)){

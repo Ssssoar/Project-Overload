@@ -16,13 +16,10 @@ MonoBehaviour:
   upgradeName: Heavier Bullets
   description: Your bullets will push enemies away harder
   values:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  - 1
+  - 16
+  - 64
+  - 150
+  - 300
+  - 600
+  - 1500

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      vampire_survivors_dlc2_ms_screen001-d354998bdb90c72f8518_1859fa0e-f263-41b6-9fa4-7339d2071373-3384310417_0: -7062845528956513269
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

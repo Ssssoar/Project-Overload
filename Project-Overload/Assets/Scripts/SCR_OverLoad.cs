@@ -11,8 +11,8 @@ public class SCR_OverLoad : SCR_Vitals{
     [SerializeField] float overloadTime;
 
     [Header("Events")]
-    [SerializeField] UnityEvent onOverLoadStart;
-    [SerializeField] UnityEvent onOverLoadEnd;
+    public UnityEvent onOverLoadStart;
+    public UnityEvent onOverLoadEnd;
 
     [Header("Variables")]
     float timer = 0f;

@@ -46,7 +46,7 @@ public class SCR_UpgradeManager : MonoBehaviour{
     void RollUpgrades(){
         SO_Upgrade[] randomUpgrades = new SO_Upgrade[upgradesToRoll];
         for (int i = 0;i < upgradesToRoll; i++){
-            randomUpgrades[i] = upgradeList[1/*(int)GetRandomUpgradeType()*/];
+            randomUpgrades[i] = upgradeList[/*0*/ (int)GetRandomUpgradeType()];
         }
         onUpgradesRolled?.Invoke(randomUpgrades);
     }
@@ -79,6 +79,9 @@ public class SCR_UpgradeManager : MonoBehaviour{
             case SO_Upgrade.UpgradeType.BulletForce:
                 UpdateBulletForce();
             break;
+            case SO_Upgrade.UpgradeType.Explosion:
+                UpdateExplosion();
+            break;
         }
         SCR_GameManager.Instance.TryEndUpgradeState();
     }
@@ -91,6 +94,7 @@ public class SCR_UpgradeManager : MonoBehaviour{
         UpdateChargerRadius();
         UpdateBulletSpeed();
         UpdateBulletForce();
+        UpdateExplosion();
     }
 
     void UpdateFireRate(){
@@ -143,6 +147,14 @@ public class SCR_UpgradeManager : MonoBehaviour{
         SO_Upgrade upgradeData = GetUpgradeListingFromType(SO_Upgrade.UpgradeType.BulletForce);
         int upgradeLevel = GetUpgradeLevelFromType(SO_Upgrade.UpgradeType.BulletForce);
         bulletForceFactor = upgradeData.values[upgradeLevel];
+    }
+
+    void UpdateExplosion(){
+        SCR_Pusher pusher = SCR_GameManager.Instance.GetPlayerPusher();
+        SO_Upgrade upgradeData = GetUpgradeListingFromType(SO_Upgrade.UpgradeType.Explosion);
+        int upgradeLevel = GetUpgradeLevelFromType(SO_Upgrade.UpgradeType.Explosion);
+        float strengthToSet = upgradeData.values[upgradeLevel];
+        pusher.ChangeStrength(strengthToSet);
     }
 
     SO_Upgrade GetUpgradeListingFromType(SO_Upgrade.UpgradeType type){
