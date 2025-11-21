@@ -1484,6 +1484,7 @@ GameObject:
   - component: {fileID: 675746005}
   - component: {fileID: 675746009}
   - component: {fileID: 675746008}
+  - component: {fileID: 675746010}
   - component: {fileID: 675746007}
   - component: {fileID: 675746006}
   m_Layer: 0
@@ -1642,6 +1643,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &675746010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675746004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ecc40c124111f2438036ed1783aec71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pusherComp: {fileID: 675746006}
 --- !u!1 &744454838
 GameObject:
   m_ObjectHideFlags: 0
@@ -2905,24 +2919,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 675746004}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  onOverLoadEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1292849629}
-        m_TargetAssemblyTypeName: SCR_PlayerCharge, Assembly-CSharp
-        m_MethodName: UnBlockCharges
+      - m_Target: {fileID: 675746010}
+        m_TargetAssemblyTypeName: SCR_Blast, Assembly-CSharp
+        m_MethodName: ActivateBlast
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2932,10 +2931,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 675746004}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+  onOverLoadEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1292849629}
+        m_TargetAssemblyTypeName: SCR_PlayerCharge, Assembly-CSharp
+        m_MethodName: UnBlockCharges
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

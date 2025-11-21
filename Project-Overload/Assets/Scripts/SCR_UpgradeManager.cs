@@ -46,7 +46,7 @@ public class SCR_UpgradeManager : MonoBehaviour{
     void RollUpgrades(){
         SO_Upgrade[] randomUpgrades = new SO_Upgrade[upgradesToRoll];
         for (int i = 0;i < upgradesToRoll; i++){
-            randomUpgrades[i] = upgradeList[/*0*/ (int)GetRandomUpgradeType()];
+            randomUpgrades[i] = upgradeList[4 /*(int)GetRandomUpgradeType()*/];
         }
         onUpgradesRolled?.Invoke(randomUpgrades);
     }
@@ -150,11 +150,11 @@ public class SCR_UpgradeManager : MonoBehaviour{
     }
 
     void UpdateExplosion(){
-        SCR_Pusher pusher = SCR_GameManager.Instance.GetPlayerPusher();
+        SCR_Blast blast = SCR_GameManager.Instance.GetPlayerBlast();
         SO_Upgrade upgradeData = GetUpgradeListingFromType(SO_Upgrade.UpgradeType.Explosion);
         int upgradeLevel = GetUpgradeLevelFromType(SO_Upgrade.UpgradeType.Explosion);
         float strengthToSet = upgradeData.values[upgradeLevel];
-        pusher.ChangeStrength(strengthToSet);
+        blast.SetBlastStrength(strengthToSet);
     }
 
     SO_Upgrade GetUpgradeListingFromType(SO_Upgrade.UpgradeType type){

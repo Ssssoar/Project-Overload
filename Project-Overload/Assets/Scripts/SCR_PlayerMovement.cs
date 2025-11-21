@@ -39,6 +39,7 @@ public class SCR_PlayerMovement : MonoBehaviour{
 
     void Freeze(){
         frozen = true;
+        movementBody.linearVelocity = Vector3.zero;
     }
 
     void Unfreeze(){

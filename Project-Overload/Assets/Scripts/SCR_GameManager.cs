@@ -16,6 +16,7 @@ public class SCR_GameManager : MonoBehaviour{
     [SerializeField] GameObject player;
     [SerializeField] GameObject gameCamera;
     [SerializeField] SCR_Charger charger;
+    [SerializeField] SCR_Blast blast;
 
     //Definitions
     public enum GameState{Playing, Paused, Upgrade, GameOver};
@@ -123,7 +124,7 @@ public class SCR_GameManager : MonoBehaviour{
         return charger;
     }
 
-    public SCR_Pusher GetPlayerPusher(){
-        return player.GetComponentInChildren<SCR_Pusher>();
+    public SCR_Blast GetPlayerBlast(){
+        return blast;
     }
 }

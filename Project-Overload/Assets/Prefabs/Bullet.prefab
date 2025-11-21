@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4165758751222330937}
   - component: {fileID: 5661254251517356678}
   - component: {fileID: 8291140955281930567}
+  - component: {fileID: -3913609601402546225}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -166,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24722983a7d7c214ba53a968af9a1b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pusherComp: {fileID: -3913609601402546225}
   speed: 10
   borderTag: Border
   forceStrength: 1
@@ -199,3 +201,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-3913609601402546225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8307512371638245622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb051b8ea7f7b744b9b641ecbc389da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushStrength: 0
