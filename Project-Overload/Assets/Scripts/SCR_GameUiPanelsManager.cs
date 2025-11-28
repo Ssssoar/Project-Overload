@@ -25,12 +25,19 @@ public class SCR_GameUiPanelsManager : MonoBehaviour{
 
     [SerializeField] PanelListing[] panels;
     [SerializeField] Button resumeButton;
-    [SerializeField] Button mainMenuButton;
+    [SerializeField] Button[] mainMenuButtons;
+    [SerializeField] Button gameRetryButton;
+    [SerializeField] Slider SFXVolumeSlider;
     [SerializeField] SCR_UpgradeSlot[] upgradeSlots;
 
     void Start(){
+        SCR_AudioPlayer.Instance.UnblockChargeSound();
         ActivatePanels();
-        if (mainMenuButton != null) mainMenuButton.onClick.AddListener(SCR_SceneSwitcher.Instance.LoadMenu);
+        foreach (Button mainMenuButton in mainMenuButtons){
+            mainMenuButton.onClick.AddListener(SCR_SceneSwitcher.Instance.LoadMenu);
+        }
+        if (gameRetryButton != null) gameRetryButton.onClick.AddListener(SCR_SceneSwitcher.Instance.LoadGame);
+        if (SFXVolumeSlider != null) SFXVolumeSlider.onValueChanged.AddListener(SCR_SettingsManager.Instance.SetSFXVolume);
         SCR_GameManager.Instance.onGameStateChange.AddListener(OpenStatePanels);
         resumeButton.onClick.AddListener(SCR_GameManager.Instance.TryUnpause);
         SCR_UpgradeManager.Instance.onUpgradesRolled.AddListener(UpdateUpgradePanels);
@@ -56,6 +63,7 @@ public class SCR_GameUiPanelsManager : MonoBehaviour{
     }
     
     void OpenConfigPanel(){
+        SFXVolumeSlider.SetValueWithoutNotify(SCR_SettingsManager.Instance.GetSFXVolume());
         OpenPanel(Panel.Config);
     }
 

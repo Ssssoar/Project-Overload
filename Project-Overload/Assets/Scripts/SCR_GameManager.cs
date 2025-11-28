@@ -61,6 +61,10 @@ public class SCR_GameManager : MonoBehaviour{
         TryChangeGameState(GameState.Playing);
     }
 
+    public void TryGameOver(){
+        TryChangeGameState(GameState.GameOver);
+    }
+
     public void TryChangeGameState(GameState changeTo){
         bool allowed = false;
         if (
@@ -74,7 +78,7 @@ public class SCR_GameManager : MonoBehaviour{
 
     void ChangeGameState(GameState changeTo){
         currentGameState = changeTo;
-        if ((changeTo == GameState.Paused) || (changeTo == GameState.Upgrade)){
+        if ((changeTo == GameState.Paused) || (changeTo == GameState.Upgrade) || (changeTo == GameState.GameOver)){
             FreezeState(true);
         }else{
             FreezeState(false);

@@ -12,6 +12,11 @@ public class SCR_PlayerCharge : SCR_Vitals{
     Dictionary<SCR_Charger,float> activeCharges = new Dictionary<SCR_Charger,float>();
     bool blocked = false;
 
+    internal override void FixedUpdate(){
+        base.FixedUpdate();
+        SCR_AudioPlayer.Instance.AdjustChargeSound(current/max);
+    }
+
     public void TryBeginCharge(SCR_Charger chargeSource){
         TryBeginCharge(chargeSource, chargeSource.GetCharge());
     }

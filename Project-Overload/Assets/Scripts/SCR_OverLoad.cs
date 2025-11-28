@@ -27,6 +27,7 @@ public class SCR_OverLoad : SCR_Vitals{
         if (!overloaded){
             if (current == max){
                 onOverLoadStart.Invoke();
+                SCR_AudioPlayer.Instance.playOverLoad();
                 overloaded = true;
                 current = 0f;
                 fillSpeed = 0f;
@@ -41,6 +42,7 @@ public class SCR_OverLoad : SCR_Vitals{
             timer -= Time.deltaTime;
             if (timer <= 0f){
                 onOverLoadEnd.Invoke();
+                SCR_AudioPlayer.Instance.resumePlayingCharge();
                 overloaded = false;
                 timer = 0f;
             }

@@ -26,11 +26,14 @@ public class SCR_MainUiPanelsManager : MonoBehaviour{
     [SerializeField] PanelListing[] panels;
     [SerializeField] Button playButton;
     [SerializeField] Button quitButton;
+    [SerializeField] Slider SFXVolumeSlider;
 
     void Start(){
         ActivatePanels();
         if (playButton != null) playButton.onClick.AddListener(SCR_SceneSwitcher.Instance.LoadGame);
         if (quitButton != null) quitButton.onClick.AddListener(SCR_SceneSwitcher.Instance.QuitGame);
+        if (SFXVolumeSlider != null) SFXVolumeSlider.onValueChanged.AddListener(SCR_SettingsManager.Instance.SetSFXVolume);
+        SCR_AudioPlayer.Instance.BlockChargeSound();
     }
 
     
@@ -38,6 +41,7 @@ public class SCR_MainUiPanelsManager : MonoBehaviour{
         OpenPanel(Panel.Main);
     }
     public void OpenConfigPanel(){
+        SFXVolumeSlider.SetValueWithoutNotify(SCR_SettingsManager.Instance.GetSFXVolume());
         OpenPanel(Panel.Config);
     }
     
