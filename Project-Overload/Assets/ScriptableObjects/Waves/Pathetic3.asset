@@ -10,10 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f70a1aae6af0fc0d8d3e7c37aa708bd, type: 3}
-  m_Name: SO_Wave
+  m_Name: Pathetic3
   m_EditorClassIdentifier: 
   enemiesToSpawn:
-  - enemyType: {fileID: 586637402819988635, guid: 4ff580e9e3fb4c1038c7901fb3295a3f, type: 3}
-    totalAmmount: 3
-    timeToSpawnAll: 3
-    maxAtOneTime: 1
+  - enemyType: {fileID: 586637402819988635, guid: 5aa69737a9b5cbba9873fa117ec09172, type: 3}
+    totalAmmount: 10
+    timeToSpawnAll: 5
+    maxAtOneTime: 3
+  - enemyType: {fileID: 586637402819988635, guid: 1de76429ae62df15a98ea9c321eb2085, type: 3}
+    totalAmmount: 2
+    timeToSpawnAll: 10
+    maxAtOneTime: 2

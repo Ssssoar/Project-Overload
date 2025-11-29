@@ -46,13 +46,25 @@ public class SCR_UpgradeManager : MonoBehaviour{
     void RollUpgrades(){
         SO_Upgrade[] randomUpgrades = new SO_Upgrade[upgradesToRoll];
         for (int i = 0;i < upgradesToRoll; i++){
-            randomUpgrades[i] = upgradeList[4 /*(int)GetRandomUpgradeType()*/];
+            randomUpgrades[i] = upgradeList[(int)GetRandomUpgradeType()];
         }
         onUpgradesRolled?.Invoke(randomUpgrades);
     }
 
     SO_Upgrade.UpgradeType GetRandomUpgradeType(){
-        return (SO_Upgrade.UpgradeType) UnityEngine.Random.Range(0,upgradeList.Length);
+        int randint;
+        SO_Upgrade.UpgradeType type;
+        int counter = 1000; //for safety
+        do{
+            randint = UnityEngine.Random.Range(0,upgradeList.Length);
+            type = upgradeList[randint].type;
+            counter--;
+            if (counter <= 0){ //infinite loop protection (should not be very probable unless the total number of upgrades = total number of waves - 3)
+                Debug.LogError("Looped over 1000 (infinite loop?)");
+                return type;
+            }
+        }while(upgradeList[randint].values.Length -1 == upgradeLevels[type]);
+        return type;
     }
 
     public void Upgrade(SO_Upgrade.UpgradeType typeToUpgrade){
@@ -172,5 +184,9 @@ public class SCR_UpgradeManager : MonoBehaviour{
             upgradeLevel = upgradeData.values.Length - 1;
         }
         return upgradeLevel;
+    }
+
+    public int GetCurrentUpgradeLevel(SO_Upgrade.UpgradeType type){
+        return upgradeLevels[type];
     }
 }

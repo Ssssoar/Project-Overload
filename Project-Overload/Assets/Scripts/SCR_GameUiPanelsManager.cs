@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SCR_GameUiPanelsManager : MonoBehaviour{
-    public enum Panel{None, Pause, GameOver, Upgrade, Config};
+    public enum Panel{None, Pause, GameOver, Upgrade, Config, Success};
 
     //SINGLETON START
     public static SCR_GameUiPanelsManager Instance {get; private set;}
@@ -26,7 +26,7 @@ public class SCR_GameUiPanelsManager : MonoBehaviour{
     [SerializeField] PanelListing[] panels;
     [SerializeField] Button resumeButton;
     [SerializeField] Button[] mainMenuButtons;
-    [SerializeField] Button gameRetryButton;
+    [SerializeField] Button[] gameRetryButtons;
     [SerializeField] Slider SFXVolumeSlider;
     [SerializeField] SCR_UpgradeSlot[] upgradeSlots;
 
@@ -36,7 +36,9 @@ public class SCR_GameUiPanelsManager : MonoBehaviour{
         foreach (Button mainMenuButton in mainMenuButtons){
             mainMenuButton.onClick.AddListener(SCR_SceneSwitcher.Instance.LoadMenu);
         }
-        if (gameRetryButton != null) gameRetryButton.onClick.AddListener(SCR_SceneSwitcher.Instance.LoadGame);
+        foreach (Button gameRetryButton in gameRetryButtons){
+            gameRetryButton.onClick.AddListener(SCR_SceneSwitcher.Instance.LoadGame);
+        }
         if (SFXVolumeSlider != null) SFXVolumeSlider.onValueChanged.AddListener(SCR_SettingsManager.Instance.SetSFXVolume);
         SCR_GameManager.Instance.onGameStateChange.AddListener(OpenStatePanels);
         resumeButton.onClick.AddListener(SCR_GameManager.Instance.TryUnpause);
@@ -48,6 +50,7 @@ public class SCR_GameUiPanelsManager : MonoBehaviour{
         else if (newState == SCR_GameManager.GameState.Paused) OpenPausePanel();
         else if (newState == SCR_GameManager.GameState.Upgrade) OpenUpgradePanel();
         else if (newState == SCR_GameManager.GameState.GameOver) OpenGameOverPanel();
+        else if (newState == SCR_GameManager.GameState.Success) OpenSuccessPanel();
     }
     
     void OpenPausePanel(){
@@ -65,6 +68,10 @@ public class SCR_GameUiPanelsManager : MonoBehaviour{
     void OpenConfigPanel(){
         SFXVolumeSlider.SetValueWithoutNotify(SCR_SettingsManager.Instance.GetSFXVolume());
         OpenPanel(Panel.Config);
+    }
+
+    void OpenSuccessPanel(){
+        OpenPanel(Panel.Success);
     }
 
     void OpenPanel(Panel panelToOpen){

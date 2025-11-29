@@ -6,7 +6,9 @@ using UnityEngine.Events;
 public class SCR_UpgradeSlot : MonoBehaviour{
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text descriptionText;
+    [SerializeField] TMP_Text lvlDisplay;
     [SerializeField] Button upgradeButton;
+    [SerializeField] string lvlTextPrefix;
     SO_Upgrade upgradeBeingDisplayed;
 
     //definitions
@@ -20,6 +22,10 @@ public class SCR_UpgradeSlot : MonoBehaviour{
         upgradeBeingDisplayed = upgrade;
         nameText.text = upgrade.upgradeName;
         descriptionText.text = upgrade.description;
+        string lvlText = lvlTextPrefix + " ";
+        lvlText += SCR_UpgradeManager.Instance.GetCurrentUpgradeLevel(upgrade.type) + " / ";
+        lvlText += upgrade.values.Length - 1;
+        lvlDisplay.text = lvlText;
     }
 
     void ChooseUpgrade(){

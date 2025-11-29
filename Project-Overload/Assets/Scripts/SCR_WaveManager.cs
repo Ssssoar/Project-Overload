@@ -18,6 +18,7 @@ public class SCR_WaveManager : MonoBehaviour{
     [Header("Parameters")]
     [SerializeField] SO_WaveList waveList;
     public UnityEvent onWaveIncrement;
+    public UnityEvent onEnemySlotFreed;
 
     [Header("Variables")]
     int currentWave = -1;
@@ -25,6 +26,7 @@ public class SCR_WaveManager : MonoBehaviour{
     List<float> timers = new List<float>();
     List<int> spawnCounters = new List<int>();
     List<int> totalSpawnCounters = new List<int>();
+    List<int> enemiesKilledCounters = new List<int>();
 
     void Start(){
         StartNextWave();
@@ -73,7 +75,8 @@ public class SCR_WaveManager : MonoBehaviour{
     void StartNextWave(){
         currentWave++;
         if (currentWave >= waveList.waves.Length){
-            currentWave = waveList.waves.Length-1;
+            SCR_GameManager.Instance.TryChangeGameState(SCR_GameManager.GameState.Success);
+            return;
         }
         currentWaveData = waveList.waves[currentWave];
         SetUpTimers();
@@ -92,16 +95,44 @@ public class SCR_WaveManager : MonoBehaviour{
     
     void SetUpSpawnCounters(){
         spawnCounters.Clear();
+        totalSpawnCounters.Clear();
+        enemiesKilledCounters.Clear();
         foreach (SO_Wave.EnemySpawnListing enemyListing in currentWaveData.enemiesToSpawn){
             spawnCounters.Add(0);
-        }
-        totalSpawnCounters.Clear();
-        foreach (SO_Wave.EnemySpawnListing enemyListing in currentWaveData.enemiesToSpawn){
             totalSpawnCounters.Add(0);
+            enemiesKilledCounters.Add(0);
         }
+        
     }
 
     public void FreeEnemySlot(int listingIndexToFree){
         spawnCounters[listingIndexToFree] -= 1;
+        enemiesKilledCounters[listingIndexToFree] += 1;
+        onEnemySlotFreed?.Invoke();
+    }
+
+    public int GetCurrentWave(){ // As one indexed number for UI display. NOT AS 0 INDEXED
+        return currentWave + 1;
+    }
+
+    public int GetWaveTotal(){ //return total number of waves
+        return waveList.waves.Length;
+    }
+
+    public int GetEnemiesLeft(){
+        int enemiesLeft = GetEnemyTotalInWave();
+        foreach (int enemiesKilledCounter in enemiesKilledCounters){
+            enemiesLeft -= enemiesKilledCounter;
+        }
+        return enemiesLeft;
+    }
+
+    public int GetEnemyTotalInWave(){
+        if (currentWaveData == null) return 0;
+        int total = 0;
+        foreach (SO_Wave.EnemySpawnListing enemyListing in currentWaveData.enemiesToSpawn){
+            total += enemyListing.totalAmmount;
+        }
+        return total;
     }
 }

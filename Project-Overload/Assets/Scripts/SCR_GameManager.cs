@@ -19,7 +19,7 @@ public class SCR_GameManager : MonoBehaviour{
     [SerializeField] SCR_Blast blast;
 
     //Definitions
-    public enum GameState{Playing, Paused, Upgrade, GameOver};
+    public enum GameState{Playing, Paused, Upgrade, GameOver, Success};
     [System.Serializable] public class GameStateEvent : UnityEvent<GameState> {}
     [System.Serializable] public class BoolEvent : UnityEvent<bool> {}
 
@@ -78,7 +78,7 @@ public class SCR_GameManager : MonoBehaviour{
 
     void ChangeGameState(GameState changeTo){
         currentGameState = changeTo;
-        if ((changeTo == GameState.Paused) || (changeTo == GameState.Upgrade) || (changeTo == GameState.GameOver)){
+        if ((changeTo == GameState.Paused) || (changeTo == GameState.Upgrade) || (changeTo == GameState.GameOver) || (changeTo == GameState.Success)){
             FreezeState(true);
         }else{
             FreezeState(false);

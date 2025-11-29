@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f70a1aae6af0fc0d8d3e7c37aa708bd, type: 3}
+  m_Name: Speedster3
+  m_EditorClassIdentifier: 
+  enemiesToSpawn:
+  - enemyType: {fileID: 586637402819988635, guid: 5aa69737a9b5cbba9873fa117ec09172, type: 3}
+    totalAmmount: 100
+    timeToSpawnAll: 50
+    maxAtOneTime: 25
+  - enemyType: {fileID: 586637402819988635, guid: 283ca70530aaebeecb4bbc77b06a5b3a, type: 3}
+    totalAmmount: 15
+    timeToSpawnAll: 3
+    maxAtOneTime: 5
