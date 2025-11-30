@@ -15,15 +15,12 @@ public class SCR_SceneSwitcher : MonoBehaviour{
     }
     //SINGLETON END
 
-    public UnityEditor.SceneAsset menuScene;
-    [SerializeField] UnityEditor.SceneAsset gameScene;
-
     public void LoadMenu(){
-        SceneManager.LoadScene(menuScene.name);
+        SceneManager.LoadScene("Menu");
     }
 
     public void LoadGame(){
-        SceneManager.LoadScene(gameScene.name);
+        SceneManager.LoadScene("Game");
     }
 
     public void QuitGame(){
